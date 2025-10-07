@@ -51,18 +51,17 @@ const title = `
 
 `;
 
-
 console.log(title, '\n');
 
 // Constants
 const COMMITMENT = CommitmentLevel.PROCESSED;
 const IS_JITO = process.env.IS_JITO!;
-
 const solanaConnection = new Connection(RPC_ENDPOINT, 'confirmed');
 const keyPair = Keypair.fromSecretKey(bs58.decode(process.env.PRIVATE_KEY!));
 const provider = new AnchorProvider(solanaConnection, new NodeWallet(keyPair), {
   commitment: "confirmed", // Set the desired commitment level
 });
+
 if (!TARGET_ADDRESS) console.log('Target Address is not defined')
 
 console.log('========================================= Your Config =======================================', '\n');
@@ -126,7 +125,6 @@ function sendSubscribeRequest(
   });
 }
 
-
 function handleStreamEvents(stream: ClientDuplexStream<SubscribeRequest, SubscribeUpdate>): Promise<void> {
   return new Promise<void>((resolve, reject) => {
     stream.on('data', async (data) => {
@@ -148,7 +146,6 @@ function handleStreamEvents(stream: ClientDuplexStream<SubscribeRequest, Subscri
     });
   });
 }
-
 
 let isStopped = false;
 
@@ -242,11 +239,7 @@ async function handleData(data: SubscribeUpdate, stream: ClientDuplexStream<Subs
 
             if (solForSwap > 0) {
 
-
-
               pumpswap_sdk.buy(new PublicKey(mintAddress), keyPair, BUY_LIMIT); // 0.22 sol
-
-
 
               // let swapTx = await getBuyTxWithJupiter(keyPair, new PublicKey(mintAddress), (Math.floor(BUY_LIMIT * LAMPORTS_PER_SOL)));
               // if (swapTx !== null) {

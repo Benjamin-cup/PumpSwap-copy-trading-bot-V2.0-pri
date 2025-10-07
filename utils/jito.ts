@@ -2,8 +2,6 @@ import { Blockhash, Commitment, Connection, Keypair, LAMPORTS_PER_SOL, PublicKey
 import base58 from "bs58";
 import axios from "axios";
 
-
-
 export const executeJitoTx = async (transactions: VersionedTransaction[], payer: Keypair, commitment: Commitment, latestBlockhash: any) => {
   const JITO_FEE = Number(process.env.JITO_FEE);
   if (!JITO_FEE) return console.log('Jito fee has not been set!');
@@ -43,7 +41,6 @@ export const executeJitoTx = async (transactions: VersionedTransaction[], payer:
     const jitoFeeTx = new VersionedTransaction(jitTipTxFeeMessage);
     jitoFeeTx.sign([payer]);
 
-
     const jitoTxsignature = base58.encode(transactions[0].signatures[0]);
 
     // Serialize the transactions once here
@@ -53,7 +50,6 @@ export const executeJitoTx = async (transactions: VersionedTransaction[], payer:
       const serializedTransaction = base58.encode(transactions[i].serialize());
       serializedTransactions.push(serializedTransaction);
     }
-
 
     const endpoints = [
       // 'https://mainnet.block-engine.jito.wtf/api/v1/bundles',
@@ -111,6 +107,3 @@ export const executeJitoTx = async (transactions: VersionedTransaction[], payer:
     return null
   }
 }
-
-
-
