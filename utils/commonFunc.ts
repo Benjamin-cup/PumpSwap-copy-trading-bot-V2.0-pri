@@ -14,12 +14,9 @@ export const saveToJSONFile = (filePath: string, data: object): void => {
     console.log('Data saved to JSON file.');
 };
 
-
 export function sleep(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
-
-
 
 export function formatDate() {
     const options: any = {
